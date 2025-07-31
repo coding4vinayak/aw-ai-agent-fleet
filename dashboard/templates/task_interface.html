@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Company - Task Assignment</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">AI Company - Task Assignment</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-dashboard mr-2"></i>Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Task Assignment Form -->
+        <div class="bg-white rounded-lg shadow mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">
+                    <i class="fas fa-plus-circle mr-2 text-blue-600"></i>
+                    Assign New Task
+                </h2>
+                <p class="text-gray-600 mt-1">Describe your task and our AI agents will automatically coordinate to complete it.</p>
+            </div>
+            <div class="p-6">
+                <form id="task-form">
+                    <div class="mb-6">
+                        <label for="task-description" class="block text-sm font-medium text-gray-700 mb-2">
+                            Task Description *
+                        </label>
+                        <textarea 
+                            id="task-description" 
+                            name="description" 
+                            rows="4" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            placeholder="Describe what you want the AI company to accomplish. For example:&#10;• Create a mobile app for task management&#10;• Design a marketing campaign for our new product&#10;• Analyze our financial performance&#10;• Develop a security audit for our systems"
+                            required
+                        ></textarea>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label for="priority" class="block text-sm font-medium text-gray-700 mb-2">
+                                Priority
+                            </label>
+                            <select 
+                                id="priority" 
+                                name="priority" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            >
+                                <option value="low">Low</option>
+                                <option value="medium" selected>Medium</option>
+                                <option value="high">High</option>
+                                <option value="urgent">Urgent</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="deadline" class="block text-sm font-medium text-gray-700 mb-2">
+                                Deadline (Optional)
+                            </label>
+                            <input 
+                                type="date" 
+                                id="deadline" 
+                                name="deadline" 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                            >
+                        </div>
+                    </div>
+                    
+                    <div class="flex justify-end">
+                        <button 
+                            type="submit" 
+                            class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                        >
+                            <i class="fas fa-paper-plane mr-2"></i>
+                            Assign Task
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Task Examples -->
+        <div class="bg-blue-50 rounded-lg p-6 mb-8">
+            <h3 class="text-lg font-semibold text-blue-900 mb-4">
+                <i class="fas fa-lightbulb mr-2"></i>
+                Example Tasks
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 class="font-medium text-gray-900 mb-2">Product Development</h4>
+                    <p class="text-sm text-gray-600">"Create a mobile app for expense tracking with AI-powered receipt scanning"</p>
+                    <button class="text-blue-600 text-sm mt-2 hover:text-blue-800" onclick="useExample(this)">Use this example</button>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 class="font-medium text-gray-900 mb-2">Marketing Campaign</h4>
+                    <p class="text-sm text-gray-600">"Design and launch a social media campaign for our new AI automation platform"</p>
+                    <button class="text-blue-600 text-sm mt-2 hover:text-blue-800" onclick="useExample(this)">Use this example</button>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 class="font-medium text-gray-900 mb-2">Financial Analysis</h4>
+                    <p class="text-sm text-gray-600">"Analyze Q4 financial performance and create budget forecast for next year"</p>
+                    <button class="text-blue-600 text-sm mt-2 hover:text-blue-800" onclick="useExample(this)">Use this example</button>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 class="font-medium text-gray-900 mb-2">Security Audit</h4>
+                    <p class="text-sm text-gray-600">"Conduct comprehensive security assessment of our web applications and APIs"</p>
+                    <button class="text-blue-600 text-sm mt-2 hover:text-blue-800" onclick="useExample(this)">Use this example</button>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 class="font-medium text-gray-900 mb-2">Team Expansion</h4>
+                    <p class="text-sm text-gray-600">"Create hiring plan and job descriptions for expanding our engineering team by 10 people"</p>
+                    <button class="text-blue-600 text-sm mt-2 hover:text-blue-800" onclick="useExample(this)">Use this example</button>
+                </div>
+                
+                <div class="bg-white p-4 rounded-lg shadow-sm">
+                    <h4 class="font-medium text-gray-900 mb-2">Process Optimization</h4>
+                    <p class="text-sm text-gray-600">"Optimize our customer onboarding process to reduce time-to-value by 50%"</p>
+                    <button class="text-blue-600 text-sm mt-2 hover:text-blue-800" onclick="useExample(this)">Use this example</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Active Tasks -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h2 class="text-xl font-semibold text-gray-900">
+                    <i class="fas fa-tasks mr-2 text-green-600"></i>
+                    Active Tasks
+                </h2>
+                <button 
+                    id="refresh-tasks" 
+                    class="text-blue-600 hover:text-blue-800"
+                    onclick="loadActiveTasks()"
+                >
+                    <i class="fas fa-sync-alt mr-1"></i>Refresh
+                </button>
+            </div>
+            <div id="active-tasks-container" class="p-6">
+                <div class="text-center text-gray-500">
+                    <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                    <p>Loading active tasks...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">
+                        <i class="fas fa-check-circle text-green-600 mr-2"></i>
+                        Task Assigned Successfully!
+                    </h3>
+                </div>
+                <div id="success-content" class="p-6">
+                    <!-- Success content will be populated here -->
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200 flex justify-end">
+                    <button 
+                        onclick="closeModal('success-modal')" 
+                        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700"
+                    >
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Form submission
+        document.getElementById('task-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const taskData = {
+                description: formData.get('description'),
+                priority: formData.get('priority'),
+                deadline: formData.get('deadline') || null
+            };
+            
+            try {
+                const response = await fetch('/api/assign-user-task', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(taskData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showSuccessModal(result);
+                    e.target.reset();
+                    loadActiveTasks();
+                } else {
+                    alert('Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('Error: ' + error.message);
+            }
+        });
+        
+        // Show success modal
+        function showSuccessModal(result) {
+            const content = document.getElementById('success-content');
+            content.innerHTML = `
+                <div class="space-y-4">
+                    <p><strong>Task ID:</strong> ${result.task_id}</p>
+                    <p><strong>Agents Assigned:</strong> ${result.agents_assigned.length}</p>
+                    <p><strong>Estimated Completion:</strong> ${new Date(result.estimated_completion).toLocaleDateString()}</p>
+                    
+                    <div>
+                        <strong>Assigned Agents:</strong>
+                        <ul class="list-disc list-inside mt-2 text-sm text-gray-600">
+                            ${result.agents_assigned.map(agent => `<li>${agent.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</li>`).join('')}
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <strong>Execution Plan:</strong>
+                        <ol class="list-decimal list-inside mt-2 text-sm text-gray-600">
+                            ${result.execution_plan.map(phase => `<li>${phase.name} (${phase.duration})</li>`).join('')}
+                        </ol>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('success-modal').classList.remove('hidden');
+        }
+        
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+        
+        // Use example task
+        function useExample(button) {
+            const example = button.parentElement.querySelector('p').textContent;
+            document.getElementById('task-description').value = example.replace(/"/g, '');
+        }
+        
+        // Load active tasks
+        async function loadActiveTasks() {
+            const container = document.getElementById('active-tasks-container');
+            
+            try {
+                const response = await fetch('/api/active-tasks');
+                const data = await response.json();
+                
+                if (data.tasks && data.tasks.length > 0) {
+                    container.innerHTML = `
+                        <div class="space-y-4">
+                            ${data.tasks.map(task => `
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <div class="flex justify-between items-start">
+                                        <div class="flex-1">
+                                            <h3 class="font-medium text-gray-900">${task.description}</h3>
+                                            <p class="text-sm text-gray-600 mt-1">
+                                                Status: <span class="font-medium">${task.status}</span> | 
+                                                Agents: ${task.agents_count} | 
+                                                Created: ${new Date(task.created_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                        <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">
+                                            ${task.task_id.substring(0, 8)}...
+                                        </span>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="text-center text-gray-500">
+                            <i class="fas fa-inbox text-4xl mb-4"></i>
+                            <p>No active tasks</p>
+                            <p class="text-sm">Assign a task above to get started!</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                container.innerHTML = `
+                    <div class="text-center text-red-500">
+                        <i class="fas fa-exclamation-triangle text-2xl mb-2"></i>
+                        <p>Error loading tasks: ${error.message}</p>
+                    </div>
+                `;
+            }
+        }
+        
+        // Load active tasks on page load
+        document.addEventListener('DOMContentLoaded', loadActiveTasks);
+    </script>
+</body>
+</html>

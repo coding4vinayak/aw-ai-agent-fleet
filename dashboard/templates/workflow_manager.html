@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universal Workflow Manager - AI Company</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        /* FORCE DARK MODE TEXT VISIBILITY */
+        html.dark {
+            color-scheme: dark;
+        }
+        html.dark * {
+            color: #F9FAFB !important;
+        }
+        html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+            color: #FFFFFF !important;
+        }
+        html.dark input, html.dark select, html.dark textarea {
+            background-color: #374151 !important;
+            color: #FFFFFF !important;
+            border-color: #6B7280 !important;
+        }
+        html.dark input::placeholder {
+            color: #9CA3AF !important;
+        }
+        html.dark option {
+            background-color: #374151 !important;
+            color: #FFFFFF !important;
+        }
+        html.dark .text-gray-900,
+        html.dark .text-gray-800,
+        html.dark .text-gray-700,
+        html.dark .text-gray-600,
+        html.dark .text-gray-500 {
+            color: #F9FAFB !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Universal Workflow Manager</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-dashboard mr-2"></i>Dashboard
+                    </a>
+                    <a href="/agents" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-robot mr-2"></i>Agents
+                    </a>
+                    <a href="/templates" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-layer-group mr-2"></i>Templates
+                    </a>
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Section -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">Business Workflow Manager</h2>
+            <p class="text-gray-600 dark:text-gray-300">Create and manage complete business workflows with AI agents</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-rocket text-blue-600 dark:text-blue-400 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Start from Template</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Use pre-built workflows</p>
+                    </div>
+                </div>
+                <button onclick="showTemplates()" class="w-full bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600">
+                    Browse Templates
+                </button>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-plus text-green-600 dark:text-green-400 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Create Custom</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Build your own workflow</p>
+                    </div>
+                </div>
+                <button onclick="showCustomWorkflow()" class="w-full bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-600">
+                    Create Workflow
+                </button>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow p-6">
+                <div class="flex items-center mb-4">
+                    <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-tasks text-purple-600 dark:text-purple-400 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="font-semibold text-gray-900 dark:text-white">Active Workflows</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-300">Manage running workflows</p>
+                    </div>
+                </div>
+                <button onclick="showActiveWorkflows()" class="w-full bg-purple-600 dark:bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-700 dark:hover:bg-purple-600">
+                    View Active
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Area -->
+        <div id="content-area" class="bg-white dark:bg-gray-800 rounded-lg shadow">
+            <!-- Templates View -->
+            <div id="templates-view" class="p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Workflow Templates</h3>
+                <div id="templates-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Templates will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Custom Workflow View -->
+            <div id="custom-workflow-view" class="p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Create Custom Workflow</h3>
+                <form id="custom-workflow-form" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Workflow Name</label>
+                            <input type="text" id="workflow-name" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md" placeholder="e.g., Restaurant Launch">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Industry</label>
+                            <select id="workflow-industry" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md">
+                                <option value="">Select Industry</option>
+                                <option value="Food & Beverage">Food & Beverage</option>
+                                <option value="Technology">Technology</option>
+                                <option value="Manufacturing">Manufacturing</option>
+                                <option value="E-commerce">E-commerce</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Description</label>
+                        <textarea id="workflow-description" rows="3" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md" placeholder="Describe your workflow..."></textarea>
+                    </div>
+                    <div id="phases-container">
+                        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Workflow Phases</label>
+                        <div id="phases-list">
+                            <!-- Phases will be added here -->
+                        </div>
+                        <button type="button" onclick="addPhase()" class="mt-2 bg-gray-600 dark:bg-gray-700 text-white px-4 py-2 rounded-lg hover:bg-gray-700 dark:hover:bg-gray-600">
+                            <i class="fas fa-plus mr-2"></i>Add Phase
+                        </button>
+                    </div>
+                    <div class="flex justify-end space-x-4">
+                        <button type="button" onclick="hideCustomWorkflow()" class="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-6 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500">
+                            Cancel
+                        </button>
+                        <button type="submit" class="bg-blue-600 dark:bg-blue-700 text-white px-6 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600">
+                            Create Workflow
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Active Workflows View -->
+            <div id="active-workflows-view" class="p-6 hidden">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Active Workflows</h3>
+                <div id="active-workflows-container">
+                    <!-- Active workflows will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Default Welcome View -->
+            <div id="welcome-view" class="p-8 text-center">
+                <div class="max-w-2xl mx-auto">
+                    <i class="fas fa-project-diagram text-6xl text-gray-400 dark:text-gray-600 mb-6"></i>
+                    <h3 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">Welcome to Universal Workflow Manager</h3>
+                    <p class="text-gray-600 dark:text-gray-300 mb-8">
+                        Create and manage complete business workflows with AI agents. Whether you're launching a restaurant, 
+                        building a SaaS product, or setting up manufacturing - our AI agents will handle every task and 
+                        generate comprehensive reports.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                            <i class="fas fa-robot text-blue-600 dark:text-blue-400 text-2xl mb-2"></i>
+                            <h4 class="font-semibold text-gray-900 dark:text-white">AI Agents Execute Tasks</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Specialized AI agents handle market research, planning, development, and more</p>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                            <i class="fas fa-chart-line text-green-600 dark:text-green-400 text-2xl mb-2"></i>
+                            <h4 class="font-semibold text-gray-900 dark:text-white">Real Reports Generated</h4>
+                            <p class="text-gray-600 dark:text-gray-300">Get detailed reports, analysis, and actionable recommendations</p>
+                        </div>
+                        <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                            <i class="fas fa-tasks text-purple-600 dark:text-purple-400 text-2xl mb-2"></i>
+                            <h4 class="font-semibold text-gray-900 dark:text-white">Complete Workflows</h4>
+                            <p class="text-gray-600 dark:text-gray-300">End-to-end business processes managed automatically</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Dark mode functionality
+        function initDarkMode() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // View management
+        function hideAllViews() {
+            document.getElementById('welcome-view').classList.add('hidden');
+            document.getElementById('templates-view').classList.add('hidden');
+            document.getElementById('custom-workflow-view').classList.add('hidden');
+            document.getElementById('active-workflows-view').classList.add('hidden');
+        }
+
+        function showTemplates() {
+            hideAllViews();
+            document.getElementById('templates-view').classList.remove('hidden');
+            loadTemplates();
+        }
+
+        function showCustomWorkflow() {
+            hideAllViews();
+            document.getElementById('custom-workflow-view').classList.remove('hidden');
+        }
+
+        function hideCustomWorkflow() {
+            hideAllViews();
+            document.getElementById('welcome-view').classList.remove('hidden');
+        }
+
+        function showActiveWorkflows() {
+            hideAllViews();
+            document.getElementById('active-workflows-view').classList.remove('hidden');
+            loadActiveWorkflows();
+        }
+
+        // Template management
+        async function loadTemplates() {
+            try {
+                const response = await fetch('/api/workflow-templates');
+                const data = await response.json();
+                
+                const container = document.getElementById('templates-container');
+                container.innerHTML = data.templates.map(template => `
+                    <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-6 hover:shadow-md transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-industry text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-semibold text-gray-900 dark:text-white">${template.name}</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">${template.industry}</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">${template.description}</p>
+                        <div class="flex justify-between items-center text-sm text-gray-500 dark:text-gray-400 mb-4">
+                            <span>${template.duration_weeks} weeks</span>
+                            <span>${template.total_phases} phases</span>
+                            <span>${template.total_tasks} tasks</span>
+                        </div>
+                        <button onclick="startWorkflowFromTemplate('${template.template_id}')" 
+                                class="w-full bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600">
+                            Start Workflow
+                        </button>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading templates:', error);
+            }
+        }
+
+        async function startWorkflowFromTemplate(templateId) {
+            try {
+                const response = await fetch('/api/workflows/start-template', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ template_id: templateId })
+                });
+                
+                const result = await response.json();
+                if (result.success) {
+                    alert(`Workflow "${result.workflow.name}" started successfully!`);
+                    showActiveWorkflows();
+                } else {
+                    alert('Error starting workflow: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error starting workflow:', error);
+                alert('Error starting workflow');
+            }
+        }
+
+        // Initialize
+        initDarkMode();
+        document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+        
+        // Load templates on page load
+        loadTemplates();
+    </script>
+</body>
+</html>

@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Company Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // Dark mode configuration for Tailwind
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        /* FORCE DARK MODE TEXT VISIBILITY */
+        html.dark {
+            color-scheme: dark;
+        }
+        html.dark * {
+            color: #F9FAFB !important;
+        }
+        html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+            color: #FFFFFF !important;
+        }
+        html.dark input, html.dark select, html.dark textarea {
+            background-color: #374151 !important;
+            color: #FFFFFF !important;
+            border-color: #6B7280 !important;
+        }
+        html.dark input::placeholder {
+            color: #9CA3AF !important;
+        }
+        html.dark option {
+            background-color: #374151 !important;
+            color: #FFFFFF !important;
+        }
+        /* Override any gray text classes */
+        html.dark .text-gray-900,
+        html.dark .text-gray-800,
+        html.dark .text-gray-700,
+        html.dark .text-gray-600,
+        html.dark .text-gray-500 {
+            color: #F9FAFB !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">AI Company Dashboard</h1>
+                    <span class="ml-4 px-3 py-1 bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 rounded-full text-sm font-medium">
+                        <i class="fas fa-circle text-green-500 dark:text-green-400 mr-1"></i>
+                        All Systems Operational
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/tasks" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-tasks mr-2"></i>Tasks
+                    </a>
+                    <a href="/agents" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-robot mr-2"></i>Agents
+                    </a>
+                    <a href="/templates" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-layer-group mr-2"></i>Templates
+                    </a>
+                    <a href="/workflows" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-project-diagram mr-2"></i>Workflows
+                    </a>
+                    <a href="/settings" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
+                        <i id="theme-icon" class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                    <button id="refresh-btn" class="bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-300">
+                        <i class="fas fa-sync-alt mr-2"></i>Refresh
+                    </button>
+                    <div class="text-sm text-gray-500 dark:text-gray-400">
+                        Last updated: <span id="last-updated">--</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-6 transition-colors duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-robot text-blue-600 dark:text-blue-400 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Agents</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="active-agents">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-6 transition-colors duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-project-diagram text-green-600 dark:text-green-400 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Active Projects</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="active-projects">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-6 transition-colors duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-tasks text-yellow-600 dark:text-yellow-400 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Pending Tasks</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="pending-tasks">--</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 p-6 transition-colors duration-300">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <i class="fas fa-chart-line text-purple-600 dark:text-purple-400 text-2xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Productivity</p>
+                        <p class="text-2xl font-semibold text-gray-900 dark:text-white" id="productivity-score">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 mb-8 transition-colors duration-300">
+            <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                <h3 class="text-lg font-medium text-gray-900 dark:text-white">Quick Actions</h3>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <a href="/templates" class="block p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-rocket text-green-600 dark:text-green-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-900 dark:text-white">Deploy Team</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Use business scenario templates</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/agents" class="block p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-plus text-blue-600 dark:text-blue-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-900 dark:text-white">Add Agent</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Create individual AI agents</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="/tasks" class="block p-4 border border-gray-200 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-tasks text-purple-600 dark:text-purple-400"></i>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-900 dark:text-white">Assign Task</h4>
+                                <p class="text-sm text-gray-600 dark:text-gray-400">Give work to your AI team</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="mb-6">
+            <nav class="flex space-x-8">
+                <button class="tab-btn active" data-tab="agents">
+                    <i class="fas fa-robot mr-2"></i>Agents
+                </button>
+                <button class="tab-btn" data-tab="projects">
+                    <i class="fas fa-project-diagram mr-2"></i>Projects
+                </button>
+                <button class="tab-btn" data-tab="tasks">
+                    <i class="fas fa-tasks mr-2"></i>Tasks
+                </button>
+                <button class="tab-btn" data-tab="performance">
+                    <i class="fas fa-chart-bar mr-2"></i>Performance
+                </button>
+                <button class="tab-btn" data-tab="standups">
+                    <i class="fas fa-users mr-2"></i>Standups
+                </button>
+            </nav>
+        </div>
+
+        <!-- Tab Content -->
+        <div id="tab-content">
+            <!-- Agents Tab -->
+            <div id="agents-tab" class="tab-content active">
+                <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 transition-colors duration-300">
+                    <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                        <h3 class="text-lg font-medium text-gray-900 dark:text-white">AI Agents Status</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-700">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Agent</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Role</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Active Tasks</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Last Activity</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="agents-table-body" class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                <!-- Agent rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Tab -->
+            <div id="projects-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                        <h3 class="text-lg font-medium text-gray-900">Projects</h3>
+                        <button id="create-project-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                            <i class="fas fa-plus mr-2"></i>New Project
+                        </button>
+                    </div>
+                    <div id="projects-grid" class="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Project cards will be populated here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Tab -->
+            <div id="tasks-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Tasks Overview</h3>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Task</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Assigned To</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Priority</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deadline</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tasks-table-body" class="bg-white divide-y divide-gray-200">
+                                <!-- Task rows will be populated here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance Tab -->
+            <div id="performance-tab" class="tab-content hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Agent Performance</h3>
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-6">
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">System Metrics</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Response Time</span>
+                                <span class="text-sm font-medium text-green-600">1.2s avg</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Uptime</span>
+                                <span class="text-sm font-medium text-green-600">99.9%</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-gray-600">Task Completion Rate</span>
+                                <span class="text-sm font-medium text-green-600">95%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Standups Tab -->
+            <div id="standups-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h3 class="text-lg font-medium text-gray-900">Daily Standups</h3>
+                    </div>
+                    <div id="standups-content" class="p-6">
+                        <!-- Standup reports will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div id="agent-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full mx-4">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900" id="modal-agent-name">Agent Details</h3>
+                    <button class="absolute top-4 right-4 text-gray-400 hover:text-gray-600" onclick="closeModal('agent-modal')">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div id="modal-agent-content" class="p-6">
+                    <!-- Agent details will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variables
+        let currentTab = 'agents';
+        let refreshInterval;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeTabs();
+            loadDashboardData();
+            startAutoRefresh();
+        });
+
+        // Tab functionality
+        function initializeTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.dataset.tab;
+                    switchTab(tabName);
+                });
+            });
+        }
+
+        function switchTab(tabName) {
+            // Update button states
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+
+            currentTab = tabName;
+            loadTabData(tabName);
+        }
+
+        // Data loading functions
+        async function loadDashboardData() {
+            try {
+                await Promise.all([
+                    loadOverviewData(),
+                    loadTabData(currentTab)
+                ]);
+                updateLastUpdated();
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+            }
+        }
+
+        async function loadOverviewData() {
+            try {
+                const [companyStatus, agents, projects, tasks] = await Promise.all([
+                    fetch('/api/company-status').then(r => r.json()),
+                    fetch('/api/agents').then(r => r.json()),
+                    fetch('/api/projects').then(r => r.json()),
+                    fetch('/api/tasks').then(r => r.json())
+                ]);
+
+                document.getElementById('active-agents').textContent = companyStatus.active_agents || 0;
+                document.getElementById('active-projects').textContent = projects.projects?.filter(p => p.status === 'in_progress').length || 0;
+                document.getElementById('pending-tasks').textContent = tasks.tasks?.filter(t => t.status === 'pending').length || 0;
+                document.getElementById('productivity-score').textContent = '95%';
+            } catch (error) {
+                console.error('Error loading overview data:', error);
+            }
+        }
+
+        async function loadTabData(tabName) {
+            switch (tabName) {
+                case 'agents':
+                    await loadAgentsData();
+                    break;
+                case 'projects':
+                    await loadProjectsData();
+                    break;
+                case 'tasks':
+                    await loadTasksData();
+                    break;
+                case 'performance':
+                    await loadPerformanceData();
+                    break;
+                case 'standups':
+                    await loadStandupsData();
+                    break;
+            }
+        }
+
+        async function loadAgentsData() {
+            try {
+                const response = await fetch('/api/agents');
+                const data = await response.json();
+                
+                const tbody = document.getElementById('agents-table-body');
+                tbody.innerHTML = '';
+
+                data.agents?.forEach(agent => {
+                    const row = createAgentRow(agent);
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading agents data:', error);
+            }
+        }
+
+        function createAgentRow(agent) {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0 h-10 w-10">
+                            <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i class="fas fa-robot text-blue-600"></i>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <div class="text-sm font-medium text-gray-900">${agent.name}</div>
+                            <div class="text-sm text-gray-500">${agent.agent_id}</div>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="text-sm text-gray-900">${agent.role_display}</span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${agent.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        ${agent.is_active ? 'Active' : 'Inactive'}
+                    </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    ${agent.active_tasks}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${agent.last_activity_relative}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                    <button onclick="viewAgentDetails('${agent.agent_id}')" class="text-blue-600 hover:text-blue-900">
+                        View Details
+                    </button>
+                </td>
+            `;
+            return row;
+        }
+
+        // Auto-refresh functionality
+        function startAutoRefresh() {
+            refreshInterval = setInterval(loadDashboardData, 30000); // Refresh every 30 seconds
+        }
+
+        function updateLastUpdated() {
+            const now = new Date();
+            document.getElementById('last-updated').textContent = now.toLocaleTimeString();
+        }
+
+        // Event handlers
+        document.getElementById('refresh-btn').addEventListener('click', loadDashboardData);
+
+        // Modal functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        async function viewAgentDetails(agentId) {
+            try {
+                const response = await fetch(`/api/agent/${agentId}`);
+                const data = await response.json();
+                
+                document.getElementById('modal-agent-name').textContent = data.basic_info.name;
+                // Populate modal content with agent details
+                
+                document.getElementById('agent-modal').classList.remove('hidden');
+            } catch (error) {
+                console.error('Error loading agent details:', error);
+            }
+        }
+
+        // Placeholder functions for other data loading
+        async function loadProjectsData() {
+            // Implementation for projects data
+        }
+
+        async function loadTasksData() {
+            // Implementation for tasks data
+        }
+
+        async function loadPerformanceData() {
+            // Implementation for performance data
+        }
+
+        async function loadStandupsData() {
+            // Implementation for standups data
+        }
+
+        // Dark Mode Functionality
+        function initDarkMode() {
+            // Check for saved theme preference or default to light mode
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+
+            updateThemeIcon();
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+
+            // Save preference
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const moonIcon = document.querySelector('#theme-toggle .fa-moon');
+            const sunIcon = document.querySelector('#theme-toggle .fa-sun');
+
+            if (isDark) {
+                if (moonIcon) moonIcon.classList.add('hidden');
+                if (sunIcon) sunIcon.classList.remove('hidden');
+            } else {
+                if (moonIcon) moonIcon.classList.remove('hidden');
+                if (sunIcon) sunIcon.classList.add('hidden');
+            }
+        }
+
+        // Initialize dark mode on page load
+        initDarkMode();
+
+        // Add event listener for theme toggle
+        document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+
+        // Listen for system theme changes
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+                updateThemeIcon();
+            }
+        });
+    </script>
+
+    <style>
+        .tab-btn {
+            @apply py-2 px-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-300;
+        }
+        .tab-btn.active {
+            @apply text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400;
+        }
+        .tab-content {
+            @apply hidden;
+        }
+        .tab-content.active {
+            @apply block;
+        }
+
+        /* Custom scrollbar for dark mode */
+        .dark ::-webkit-scrollbar {
+            width: 8px;
+        }
+        .dark ::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        .dark ::-webkit-scrollbar-thumb {
+            background: #6B7280;
+            border-radius: 4px;
+        }
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #9CA3AF;
+        }
+
+        /* Force dark mode text visibility */
+        .dark {
+            color-scheme: dark;
+        }
+        .dark * {
+            border-color: #4B5563 !important;
+        }
+        .dark body {
+            background-color: #111827 !important;
+            color: #F9FAFB !important;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+            color: #F9FAFB !important;
+        }
+        .dark p, .dark span, .dark div, .dark td, .dark th, .dark label {
+            color: #D1D5DB !important;
+        }
+        .dark input, .dark select, .dark textarea {
+            background-color: #374151 !important;
+            color: #F9FAFB !important;
+            border-color: #6B7280 !important;
+        }
+        .dark input::placeholder, .dark select::placeholder, .dark textarea::placeholder {
+            color: #9CA3AF !important;
+        }
+        .dark .text-gray-900 {
+            color: #F9FAFB !important;
+        }
+        .dark .text-gray-800 {
+            color: #F3F4F6 !important;
+        }
+        .dark .text-gray-700 {
+            color: #E5E7EB !important;
+        }
+        .dark .text-gray-600 {
+            color: #D1D5DB !important;
+        }
+        .dark .text-gray-500 {
+            color: #9CA3AF !important;
+        }
+    </style>
+</body>
+</html>

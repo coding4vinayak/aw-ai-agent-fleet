@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Company - Settings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900">AI Company - Settings</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-dashboard mr-2"></i>Dashboard
+                    </a>
+                    <a href="/tasks" class="text-blue-600 hover:text-blue-800">
+                        <i class="fas fa-tasks mr-2"></i>Tasks
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Settings Navigation -->
+        <div class="mb-8">
+            <nav class="flex space-x-8">
+                <button class="settings-tab active" data-tab="llm">
+                    <i class="fas fa-brain mr-2"></i>LLM Providers
+                </button>
+                <button class="settings-tab" data-tab="agents">
+                    <i class="fas fa-robot mr-2"></i>AI Agents
+                </button>
+                <button class="settings-tab" data-tab="data">
+                    <i class="fas fa-database mr-2"></i>Data & Storage
+                </button>
+                <button class="settings-tab" data-tab="integrations">
+                    <i class="fas fa-plug mr-2"></i>Integrations
+                </button>
+                <button class="settings-tab" data-tab="general">
+                    <i class="fas fa-cog mr-2"></i>General
+                </button>
+            </nav>
+        </div>
+
+        <!-- LLM Providers Tab -->
+        <div id="llm-tab" class="settings-content active">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-900">
+                        <i class="fas fa-brain mr-2 text-purple-600"></i>
+                        LLM Provider Configurations
+                    </h2>
+                    <button id="add-llm-btn" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-plus mr-2"></i>Add LLM Config
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div id="llm-configs-container">
+                        <div class="text-center text-gray-500">
+                            <i class="fas fa-spinner fa-spin text-2xl mb-2"></i>
+                            <p>Loading LLM configurations...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- AI Agents Tab -->
+        <div id="agents-tab" class="settings-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-900">
+                        <i class="fas fa-robot mr-2 text-blue-600"></i>
+                        AI Agent Configurations
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Agent cards will be populated here -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <h3 class="font-medium text-gray-900 mb-2">CEO Agent</h3>
+                            <p class="text-sm text-gray-600 mb-4">Strategic decision making and leadership</p>
+                            <div class="space-y-2">
+                                <div class="flex justify-between text-sm">
+                                    <span>LLM:</span>
+                                    <span class="font-medium">openai_gpt4</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Temperature:</span>
+                                    <span class="font-medium">0.7</span>
+                                </div>
+                                <div class="flex justify-between text-sm">
+                                    <span>Status:</span>
+                                    <span class="text-green-600 font-medium">Active</span>
+                                </div>
+                            </div>
+                            <button class="mt-4 w-full bg-gray-100 text-gray-700 px-3 py-2 rounded hover:bg-gray-200">
+                                Configure
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data & Storage Tab -->
+        <div id="data-tab" class="settings-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-900">
+                        <i class="fas fa-database mr-2 text-green-600"></i>
+                        Data & Storage Configuration
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Database Configuration -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Database Settings</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Database Type</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="sqlite">SQLite (Local)</option>
+                                        <option value="postgresql">PostgreSQL</option>
+                                        <option value="mysql">MySQL</option>
+                                        <option value="mongodb">MongoDB</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Connection String</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
+                                           placeholder="sqlite:///data/ai_company.db">
+                                </div>
+                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                                    Test Connection
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Storage Configuration -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">File Storage</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Storage Type</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="local">Local File System</option>
+                                        <option value="s3">Amazon S3</option>
+                                        <option value="azure">Azure Blob Storage</option>
+                                        <option value="gcp">Google Cloud Storage</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Storage Path</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
+                                           placeholder="data/files">
+                                </div>
+                                <div class="bg-blue-50 p-4 rounded-lg">
+                                    <h4 class="font-medium text-blue-900 mb-2">Storage Statistics</h4>
+                                    <div class="text-sm text-blue-700">
+                                        <p>Total Files: 1,234</p>
+                                        <p>Storage Used: 2.5 GB</p>
+                                        <p>Cache Hit Rate: 95%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Integrations Tab -->
+        <div id="integrations-tab" class="settings-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                    <h2 class="text-xl font-semibold text-gray-900">
+                        <i class="fas fa-plug mr-2 text-orange-600"></i>
+                        External Integrations
+                    </h2>
+                    <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                        <i class="fas fa-plus mr-2"></i>Add Integration
+                    </button>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Integration cards -->
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center mb-3">
+                                <i class="fab fa-slack text-2xl text-purple-600 mr-3"></i>
+                                <h3 class="font-medium text-gray-900">Slack</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Send notifications and updates to Slack channels</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Status: Disconnected</span>
+                                <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">
+                                    Connect
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-envelope text-2xl text-blue-600 mr-3"></i>
+                                <h3 class="font-medium text-gray-900">Email</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Send email notifications and reports</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-green-600">Status: Connected</span>
+                                <button class="bg-gray-600 text-white px-3 py-1 rounded text-sm hover:bg-gray-700">
+                                    Configure
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center mb-3">
+                                <i class="fas fa-webhook text-2xl text-green-600 mr-3"></i>
+                                <h3 class="font-medium text-gray-900">Webhooks</h3>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-4">Send HTTP callbacks for events</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Status: Disconnected</span>
+                                <button class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">
+                                    Setup
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- General Tab -->
+        <div id="general-tab" class="settings-content hidden">
+            <div class="bg-white rounded-lg shadow">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h2 class="text-xl font-semibold text-gray-900">
+                        <i class="fas fa-cog mr-2 text-gray-600"></i>
+                        General Settings
+                    </h2>
+                </div>
+                <div class="p-6">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Company Settings -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Company Information</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+                                    <input type="text" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
+                                           value="AI Company">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Timezone</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="UTC">UTC</option>
+                                        <option value="America/New_York">Eastern Time</option>
+                                        <option value="America/Los_Angeles">Pacific Time</option>
+                                        <option value="Europe/London">London</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Log Level</label>
+                                    <select class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                                        <option value="DEBUG">Debug</option>
+                                        <option value="INFO" selected>Info</option>
+                                        <option value="WARNING">Warning</option>
+                                        <option value="ERROR">Error</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Settings -->
+                        <div>
+                            <h3 class="text-lg font-medium text-gray-900 mb-4">Performance</h3>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Max Concurrent Tasks</label>
+                                    <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
+                                           value="10" min="1" max="100">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Task Timeout (minutes)</label>
+                                    <input type="number" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
+                                           value="60" min="5" max="1440">
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="cache-enabled" class="mr-2" checked>
+                                    <label for="cache-enabled" class="text-sm font-medium text-gray-700">Enable Caching</label>
+                                </div>
+                                <div class="flex items-center">
+                                    <input type="checkbox" id="monitoring-enabled" class="mr-2" checked>
+                                    <label for="monitoring-enabled" class="text-sm font-medium text-gray-700">Enable Monitoring</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <button class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 mr-4">
+                                    Save Settings
+                                </button>
+                                <button class="bg-gray-600 text-white px-6 py-2 rounded-lg hover:bg-gray-700">
+                                    Export Config
+                                </button>
+                            </div>
+                            <button class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700">
+                                Reset to Defaults
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Add LLM Config Modal -->
+    <div id="add-llm-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white rounded-lg shadow-xl max-w-md w-full mx-4">
+                <div class="px-6 py-4 border-b border-gray-200">
+                    <h3 class="text-lg font-medium text-gray-900">Add LLM Configuration</h3>
+                </div>
+                <form id="add-llm-form" class="p-6">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Configuration Name</label>
+                            <input type="text" name="name" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Provider</label>
+                            <select name="provider" class="w-full px-3 py-2 border border-gray-300 rounded-md" required>
+                                <option value="openai">OpenAI</option>
+                                <option value="anthropic">Anthropic</option>
+                                <option value="azure_openai">Azure OpenAI</option>
+                                <option value="ollama">Ollama (Local)</option>
+                                <option value="custom">Custom API</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Model Name</label>
+                            <input type="text" name="model_name" class="w-full px-3 py-2 border border-gray-300 rounded-md" 
+                                   placeholder="gpt-4" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">API Key</label>
+                            <input type="password" name="api_key" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">API Base URL (Optional)</label>
+                            <input type="url" name="api_base" class="w-full px-3 py-2 border border-gray-300 rounded-md">
+                        </div>
+                    </div>
+                </form>
+                <div class="px-6 py-4 border-t border-gray-200 flex justify-end space-x-3">
+                    <button onclick="closeModal('add-llm-modal')" class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-400">
+                        Cancel
+                    </button>
+                    <button onclick="submitLLMConfig()" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
+                        Add Configuration
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        document.querySelectorAll('.settings-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.dataset.tab;
+                switchSettingsTab(tabName);
+            });
+        });
+
+        function switchSettingsTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.settings-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.settings-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        // Load LLM configurations
+        async function loadLLMConfigs() {
+            try {
+                const response = await fetch('/api/settings/llm-configs');
+                const data = await response.json();
+                
+                const container = document.getElementById('llm-configs-container');
+                
+                if (Object.keys(data.configs).length > 0) {
+                    container.innerHTML = Object.entries(data.configs).map(([name, config]) => `
+                        <div class="border border-gray-200 rounded-lg p-4 mb-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="font-medium text-gray-900">${name}</h3>
+                                    <p class="text-sm text-gray-600">${config.provider} - ${config.model_name}</p>
+                                    <div class="mt-2 text-xs text-gray-500">
+                                        Temperature: ${config.temperature} | Max Tokens: ${config.max_tokens}
+                                    </div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button onclick="testLLMConfig('${name}')" class="bg-green-600 text-white px-3 py-1 rounded text-sm hover:bg-green-700">
+                                        Test
+                                    </button>
+                                    <button class="bg-blue-600 text-white px-3 py-1 rounded text-sm hover:bg-blue-700">
+                                        Edit
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `
+                        <div class="text-center text-gray-500">
+                            <i class="fas fa-brain text-4xl mb-4"></i>
+                            <p>No LLM configurations found</p>
+                            <p class="text-sm">Add your first LLM configuration to get started</p>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading LLM configs:', error);
+            }
+        }
+
+        // Test LLM configuration
+        async function testLLMConfig(configName) {
+            try {
+                const response = await fetch(`/api/settings/test-llm/${configName}`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert(`✅ Connection successful!\nResponse time: ${result.response_time.toFixed(2)}s`);
+                } else {
+                    alert(`❌ Connection failed: ${result.error}`);
+                }
+            } catch (error) {
+                alert(`❌ Test failed: ${error.message}`);
+            }
+        }
+
+        // Modal functions
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        document.getElementById('add-llm-btn').addEventListener('click', function() {
+            document.getElementById('add-llm-modal').classList.remove('hidden');
+        });
+
+        async function submitLLMConfig() {
+            const form = document.getElementById('add-llm-form');
+            const formData = new FormData(form);
+            
+            const config = {
+                name: formData.get('name'),
+                provider: formData.get('provider'),
+                model_name: formData.get('model_name'),
+                api_key: formData.get('api_key'),
+                api_base: formData.get('api_base')
+            };
+            
+            try {
+                const response = await fetch('/api/settings/llm-configs', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(config)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    closeModal('add-llm-modal');
+                    form.reset();
+                    loadLLMConfigs();
+                    alert('✅ LLM configuration added successfully!');
+                } else {
+                    alert('❌ Error: ' + result.error);
+                }
+            } catch (error) {
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadLLMConfigs();
+        });
+    </script>
+
+    <style>
+        .settings-tab {
+            @apply py-2 px-4 text-sm font-medium text-gray-500 hover:text-gray-700 border-b-2 border-transparent hover:border-gray-300;
+        }
+        .settings-tab.active {
+            @apply text-blue-600 border-blue-600;
+        }
+    </style>
+</body>
+</html>

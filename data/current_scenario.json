@@ -1,0 +1,66 @@
+{
+  "scenario_name": "tech_startup",
+  "scenario_info": {
+    "name": "Tech Startup Team",
+    "description": "Complete team for a technology startup from MVP to Series A",
+    "team_size": 8,
+    "agents": [
+      {
+        "template": "startup_ceo",
+        "agent_id": "startup_ceo_001",
+        "name": "Alex Chen - Startup CEO"
+      },
+      {
+        "template": "tech_cto",
+        "agent_id": "startup_cto_001",
+        "name": "Sarah Kim - Startup CTO"
+      },
+      {
+        "template": "product_manager",
+        "agent_id": "startup_pm_001",
+        "name": "Emma Thompson - Product Manager"
+      },
+      {
+        "template": "senior_engineer",
+        "agent_id": "startup_eng_001",
+        "name": "David Park - Lead Engineer"
+      },
+      {
+        "template": "frontend_specialist",
+        "agent_id": "startup_frontend_001",
+        "name": "Lisa Wang - Frontend Engineer"
+      },
+      {
+        "template": "digital_marketer",
+        "agent_id": "startup_marketing_001",
+        "name": "Rachel Green - Growth Marketer"
+      },
+      {
+        "template": "ux_researcher",
+        "agent_id": "startup_ux_001",
+        "name": "Jordan Smith - UX Designer"
+      },
+      {
+        "template": "business_analyst",
+        "agent_id": "startup_analyst_001",
+        "name": "Maya Patel - Business Analyst"
+      }
+    ],
+    "common_tasks": [
+      "Validate product-market fit for our MVP",
+      "Create pitch deck for Series A fundraising",
+      "Develop go-to-market strategy for new product",
+      "Build scalable technical architecture",
+      "Design user acquisition strategy"
+    ],
+    "key_metrics": [
+      "Monthly Recurring Revenue (MRR)",
+      "Customer Acquisition Cost (CAC)",
+      "Product-Market Fit Score",
+      "User Engagement Rate",
+      "Burn Rate and Runway"
+    ]
+  },
+  "setup_date": "2025-07-31T08:13:10.103425",
+  "setup_type": "instant_setup"
+}

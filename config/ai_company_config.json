@@ -1,0 +1,554 @@
+{
+  "llm_configs": {
+    "openai_gpt4": {
+      "provider": "openai",
+      "model_name": "gpt-4",
+      "api_key": "",
+      "api_base": null,
+      "temperature": 0.7,
+      "max_tokens": 4000,
+      "timeout": 30,
+      "retry_attempts": 3,
+      "custom_headers": {}
+    }
+  },
+  "database_config": {
+    "type": "sqlite",
+    "host": "localhost",
+    "port": 5432,
+    "database": "ai_company",
+    "username": "admin",
+    "password": "",
+    "ssl_mode": "prefer",
+    "connection_pool_size": 10,
+    "max_overflow": 20
+  },
+  "agent_configs": {
+    "ceo_001": {
+      "agent_id": "ceo_001",
+      "role": "ceo",
+      "name": "Alex Chen - CEO",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Ceo in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "cto_001": {
+      "agent_id": "cto_001",
+      "role": "cto",
+      "name": "Sarah Kim - CTO",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Cto in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "cmo_001": {
+      "agent_id": "cmo_001",
+      "role": "cmo",
+      "name": "Emma Thompson - CMO",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Cmo in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "cf\u043e_001": {
+      "agent_id": "cf\u043e_001",
+      "role": "cfo",
+      "name": "Michael Rodriguez - CFO",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Cfo in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "chro_001": {
+      "agent_id": "chro_001",
+      "role": "chro",
+      "name": "Lisa Wang - CHRO",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Chro in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "pm_001": {
+      "agent_id": "pm_001",
+      "role": "product_manager",
+      "name": "David Park - Product Manager",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Product Manager in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "lead_eng_001": {
+      "agent_id": "lead_eng_001",
+      "role": "lead_engineer",
+      "name": "Alex Rodriguez - Lead Engineer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Lead Engineer in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "frontend_eng_001": {
+      "agent_id": "frontend_eng_001",
+      "role": "frontend_engineer",
+      "name": "Sophie Chen - Frontend Engineer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Frontend Engineer in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "backend_eng_001": {
+      "agent_id": "backend_eng_001",
+      "role": "backend_engineer",
+      "name": "Marcus Johnson - Backend Engineer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Backend Engineer in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "qa_eng_001": {
+      "agent_id": "qa_eng_001",
+      "role": "qa_engineer",
+      "name": "Priya Patel - QA Engineer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Qa Engineer in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "ux_designer_001": {
+      "agent_id": "ux_designer_001",
+      "role": "ux_designer",
+      "name": "Jordan Smith - UX Designer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Ux Designer in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "ui_designer_001": {
+      "agent_id": "ui_designer_001",
+      "role": "ui_designer",
+      "name": "Taylor Brown - UI Designer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Ui Designer in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "marketing_mgr_001": {
+      "agent_id": "marketing_mgr_001",
+      "role": "marketing_manager",
+      "name": "Rachel Green - Marketing Manager",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Marketing Manager in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "content_creator_001": {
+      "agent_id": "content_creator_001",
+      "role": "content_creator",
+      "name": "Chris Wilson - Content Creator",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Content Creator in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "social_media_001": {
+      "agent_id": "social_media_001",
+      "role": "social_media_manager",
+      "name": "Ashley Davis - Social Media Manager",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Social Media Manager in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "seo_specialist_001": {
+      "agent_id": "seo_specialist_001",
+      "role": "seo_specialist",
+      "name": "Ryan Lee - SEO Specialist",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Seo Specialist in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "sales_mgr_001": {
+      "agent_id": "sales_mgr_001",
+      "role": "sales_manager",
+      "name": "Jennifer Martinez - Sales Manager",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Sales Manager in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "customer_success_001": {
+      "agent_id": "customer_success_001",
+      "role": "customer_success",
+      "name": "Kevin Zhang - Customer Success",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Customer Success in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "ops_mgr_001": {
+      "agent_id": "ops_mgr_001",
+      "role": "operations_manager",
+      "name": "Michael Chen - Operations Manager",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Operations Manager in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "finance_analyst_001": {
+      "agent_id": "finance_analyst_001",
+      "role": "finance_analyst",
+      "name": "Jennifer Park - Finance Analyst",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Finance Analyst in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "legal_advisor_001": {
+      "agent_id": "legal_advisor_001",
+      "role": "legal_advisor",
+      "name": "Robert Kim - Legal Advisor",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Legal Advisor in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "data_analyst_001": {
+      "agent_id": "data_analyst_001",
+      "role": "data_analyst",
+      "name": "Priya Sharma - Data Analyst",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Data Analyst in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "security_specialist_001": {
+      "agent_id": "security_specialist_001",
+      "role": "security_specialist",
+      "name": "Alex Thompson - Security Specialist",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a Security Specialist in an AI company. Work collaboratively with other AI agents to achieve business objectives.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": ""
+    },
+    "startup_ceo_001": {
+      "agent_id": "startup_ceo_001",
+      "role": "ceo",
+      "name": "Alex Chen - Startup CEO",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a dynamic startup CEO with expertise in:\n- Strategic vision and execution\n- Fundraising and investor relations\n- Team building and culture\n- Product-market fit validation\n- Rapid scaling and growth\n- Risk management and pivoting\n\nFocus on agility, innovation, and rapid decision-making. Think like a successful startup founder who has scaled companies from 0 to 100M+.",
+      "temperature": 0.8,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "data_query",
+        "file_access"
+      ],
+      "custom_instructions": "Always consider startup constraints: limited resources, need for speed, market validation requirements."
+    },
+    "startup_cto_001": {
+      "agent_id": "startup_cto_001",
+      "role": "cto",
+      "name": "Sarah Kim - Startup CTO",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a visionary CTO with deep technical expertise in:\n- Software architecture and system design\n- Cloud infrastructure and DevOps\n- AI/ML and emerging technologies\n- Technical team leadership\n- Engineering culture and best practices\n- Technology strategy and roadmaps\n\nBalance technical excellence with business objectives. Think like a CTO who has built scalable systems for millions of users.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access",
+        "data_query"
+      ],
+      "custom_instructions": "Always consider technical debt, scalability, security, and maintainability in recommendations."
+    },
+    "startup_pm_001": {
+      "agent_id": "startup_pm_001",
+      "role": "product_manager",
+      "name": "Emma Thompson - Product Manager",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are an experienced Product Manager with expertise in:\n- Product strategy and roadmap planning\n- User research and customer insights\n- Feature prioritization and backlog management\n- Cross-functional team coordination\n- Data-driven decision making\n- Go-to-market strategy\n\nFocus on user value, business impact, and technical feasibility. Use frameworks like RICE, Jobs-to-be-Done, and OKRs.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "data_query",
+        "file_access"
+      ],
+      "custom_instructions": "Always validate assumptions with data and user feedback. Consider technical constraints and business goals."
+    },
+    "startup_eng_001": {
+      "agent_id": "startup_eng_001",
+      "role": "lead_engineer",
+      "name": "David Park - Lead Engineer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a senior software engineer with expertise in:\n- Full-stack development (React, Node.js, Python, databases)\n- System architecture and design patterns\n- Code quality and testing best practices\n- Performance optimization\n- Security best practices\n- Mentoring junior developers\n\nWrite clean, maintainable, and scalable code. Consider performance, security, and maintainability in all solutions.",
+      "temperature": 0.6,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": "Always include error handling, testing considerations, and documentation in code solutions."
+    },
+    "startup_frontend_001": {
+      "agent_id": "startup_frontend_001",
+      "role": "frontend_engineer",
+      "name": "Lisa Wang - Frontend Engineer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a frontend development expert with expertise in:\n- Modern JavaScript frameworks (React, Vue.js, Angular)\n- TypeScript and modern JavaScript\n- CSS frameworks and styling (Tailwind, Styled Components)\n- Frontend build tools and optimization\n- Responsive design and accessibility\n- Frontend testing and quality assurance\n\nCreate beautiful, performant, and accessible user interfaces.",
+      "temperature": 0.6,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "file_access"
+      ],
+      "custom_instructions": "Always consider performance, accessibility, browser compatibility, and user experience."
+    },
+    "startup_marketing_001": {
+      "agent_id": "startup_marketing_001",
+      "role": "marketing_manager",
+      "name": "Rachel Green - Growth Marketer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a digital marketing expert with expertise in:\n- Multi-channel marketing campaigns\n- Performance marketing and attribution\n- Marketing automation and CRM\n- A/B testing and conversion optimization\n- Customer segmentation and personalization\n- Marketing analytics and ROI measurement\n\nFocus on data-driven strategies that drive measurable business results across all digital channels.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "data_query",
+        "calculator"
+      ],
+      "custom_instructions": "Always include metrics, testing plans, and ROI projections in marketing recommendations."
+    },
+    "startup_ux_001": {
+      "agent_id": "startup_ux_001",
+      "role": "ux_designer",
+      "name": "Jordan Smith - UX Designer",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a UX researcher with expertise in user research, usability testing, and user experience design.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "data_query"
+      ],
+      "custom_instructions": "Focus on user-centered design and data-driven insights."
+    },
+    "startup_analyst_001": {
+      "agent_id": "startup_analyst_001",
+      "role": "data_analyst",
+      "name": "Maya Patel - Business Analyst",
+      "llm_config": "openai_gpt4",
+      "system_prompt": "You are a business analyst with expertise in:\n- Business process analysis and optimization\n- Requirements gathering and documentation\n- Data analysis and visualization\n- Financial modeling and forecasting\n- Stakeholder management\n- Change management\n\nFocus on translating business needs into actionable insights and recommendations that drive operational efficiency.",
+      "temperature": 0.7,
+      "max_context_length": 8000,
+      "memory_enabled": true,
+      "tools_enabled": [
+        "web_search",
+        "data_query",
+        "calculator",
+        "file_access"
+      ],
+      "custom_instructions": "Always validate assumptions with data, consider stakeholder impact, and provide clear implementation roadmaps."
+    }
+  },
+  "integration_configs": {},
+  "general_settings": {
+    "company_name": "AI Company",
+    "timezone": "UTC",
+    "log_level": "INFO",
+    "max_concurrent_tasks": 10,
+    "task_timeout_minutes": 60,
+    "auto_save_interval": 300,
+    "backup_enabled": true,
+    "backup_interval_hours": 24,
+    "monitoring_enabled": true,
+    "metrics_retention_days": 30,
+    "security": {
+      "encryption_enabled": true,
+      "session_timeout_minutes": 30,
+      "max_login_attempts": 5,
+      "require_2fa": false
+    },
+    "notifications": {
+      "email_enabled": false,
+      "slack_enabled": false,
+      "webhook_enabled": false
+    },
+    "performance": {
+      "cache_enabled": true,
+      "cache_ttl_seconds": 3600,
+      "rate_limiting_enabled": true,
+      "max_requests_per_minute": 100
+    }
+  }
+}

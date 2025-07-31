@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Company - Templates</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // Dark mode configuration for Tailwind
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <style>
+        /* FORCE DARK MODE TEXT VISIBILITY */
+        html.dark {
+            color-scheme: dark;
+        }
+        html.dark * {
+            color: #F9FAFB !important;
+        }
+        html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6 {
+            color: #FFFFFF !important;
+        }
+        html.dark input, html.dark select, html.dark textarea {
+            background-color: #374151 !important;
+            color: #FFFFFF !important;
+            border-color: #6B7280 !important;
+        }
+        html.dark input::placeholder {
+            color: #9CA3AF !important;
+        }
+        html.dark option {
+            background-color: #374151 !important;
+            color: #FFFFFF !important;
+        }
+        /* Override any gray text classes */
+        html.dark .text-gray-900,
+        html.dark .text-gray-800,
+        html.dark .text-gray-700,
+        html.dark .text-gray-600,
+        html.dark .text-gray-500 {
+            color: #F9FAFB !important;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 transition-colors duration-300">
+    <!-- Header -->
+    <header class="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">AI Company - Templates</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <a href="/" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-dashboard mr-2"></i>Dashboard
+                    </a>
+                    <a href="/tasks" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-tasks mr-2"></i>Tasks
+                    </a>
+                    <a href="/agents" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-robot mr-2"></i>Agents
+                    </a>
+                    <a href="/settings" class="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300">
+                        <i class="fas fa-cog mr-2"></i>Settings
+                    </a>
+                    <!-- Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors duration-300">
+                        <i class="fas fa-moon dark:hidden"></i>
+                        <i class="fas fa-sun hidden dark:block"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header Section -->
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-2">AI Company Templates</h2>
+            <p class="text-gray-600 dark:text-gray-300">Deploy complete AI teams instantly with pre-built business scenarios</p>
+        </div>
+
+        <!-- Template Categories -->
+        <div class="mb-8">
+            <nav class="flex space-x-8">
+                <button class="template-tab active" data-tab="scenarios">
+                    <i class="fas fa-building mr-2"></i>Business Scenarios
+                </button>
+                <button class="template-tab" data-tab="agents">
+                    <i class="fas fa-robot mr-2"></i>Individual Agents
+                </button>
+            </nav>
+        </div>
+
+        <!-- Business Scenarios Tab -->
+        <div id="scenarios-tab" class="template-content active">
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Complete Business Teams</h3>
+                <p class="text-gray-600 dark:text-gray-300">Deploy entire teams of specialized AI agents for specific business scenarios</p>
+            </div>
+
+            <div id="scenarios-container" class="space-y-8">
+                <!-- Scenarios will be loaded here -->
+                <div class="text-center text-gray-500 dark:text-gray-400">
+                    <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
+                    <p>Loading business scenarios...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Individual Agents Tab -->
+        <div id="agents-tab" class="template-content hidden">
+            <div class="mb-6">
+                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">Individual Agent Templates</h3>
+                <p class="text-gray-600 dark:text-gray-300">Create specific AI agents for targeted business functions</p>
+            </div>
+
+            <div id="agent-templates-container" class="space-y-8">
+                <!-- Agent templates will be loaded here -->
+                <div class="text-center text-gray-500 dark:text-gray-400">
+                    <i class="fas fa-spinner fa-spin text-3xl mb-4"></i>
+                    <p>Loading agent templates...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Deploy Scenario Modal -->
+    <div id="deploy-scenario-modal" class="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-75 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-2xl w-full mx-4">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">Deploy Business Scenario</h3>
+                </div>
+                <div class="p-6">
+                    <div id="scenario-details" class="text-gray-900 dark:text-white"></div>
+                    <form id="deploy-scenario-form" class="mt-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Team Prefix (Optional)</label>
+                                <input type="text" name="prefix" class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                                       placeholder="e.g., 'startup' for startup_ceo_001">
+                                <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Adds a prefix to all agent IDs for organization</p>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-3">
+                    <button onclick="closeModal('deploy-scenario-modal')" class="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500">
+                        Cancel
+                    </button>
+                    <button onclick="deployScenario()" class="bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-600">
+                        Deploy Team
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Details Modal -->
+    <div id="team-details-modal" class="fixed inset-0 bg-gray-600 dark:bg-gray-900 bg-opacity-50 dark:bg-opacity-75 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700 sticky top-0 bg-white dark:bg-gray-800">
+                    <div class="flex justify-between items-center">
+                        <h3 class="text-xl font-bold text-gray-900 dark:text-white">Team Details</h3>
+                        <button onclick="closeModal('team-details-modal')" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                            <i class="fas fa-times text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div id="team-details-content">
+                        <!-- Team details will be loaded here -->
+                    </div>
+                </div>
+                <div class="px-6 py-4 border-t border-gray-200 dark:border-gray-700 flex justify-end space-x-3 sticky bottom-0 bg-white dark:bg-gray-800">
+                    <button onclick="closeModal('team-details-modal')" class="bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg hover:bg-gray-400 dark:hover:bg-gray-500">
+                        Close
+                    </button>
+                    <button onclick="deployFromTeamView()" class="bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-600">
+                        <i class="fas fa-rocket mr-2"></i>Deploy This Team
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentScenario = null;
+        let currentScenarios = [];
+
+        // Tab functionality
+        document.querySelectorAll('.template-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabName = this.dataset.tab;
+                switchTab(tabName);
+            });
+        });
+
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.template-tab').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update content
+            document.querySelectorAll('.template-content').forEach(content => {
+                content.classList.add('hidden');
+                content.classList.remove('active');
+            });
+            document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+            document.getElementById(`${tabName}-tab`).classList.add('active');
+        }
+
+        // Load data on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadBusinessScenarios();
+            loadAgentTemplates();
+        });
+
+        async function loadBusinessScenarios() {
+            try {
+                const response = await fetch('/api/templates/scenarios');
+                const data = await response.json();
+                
+                if (data.scenarios) {
+                    currentScenarios = data.scenarios;
+                    displayBusinessScenarios(data.scenarios);
+                } else {
+                    showError('Failed to load business scenarios');
+                }
+            } catch (error) {
+                console.error('Error loading scenarios:', error);
+                showError('Error loading business scenarios');
+            }
+        }
+
+        async function loadAgentTemplates() {
+            try {
+                const response = await fetch('/api/templates/agents');
+                const data = await response.json();
+                
+                if (data.templates) {
+                    displayAgentTemplates(data.templates);
+                } else {
+                    showError('Failed to load agent templates');
+                }
+            } catch (error) {
+                console.error('Error loading agent templates:', error);
+                showError('Error loading agent templates');
+            }
+        }
+
+        function displayBusinessScenarios(scenarios) {
+            const container = document.getElementById('scenarios-container');
+            
+            let html = '';
+            for (const [category, scenarioList] of Object.entries(scenarios)) {
+                html += `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 transition-colors duration-300">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">${category}</h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                `;
+                
+                scenarioList.forEach(scenario => {
+                    html += `
+                        <div class="template-card border border-gray-200 dark:border-gray-600 rounded-lg p-6 hover:shadow-md dark:hover:shadow-gray-900/30 transition-shadow bg-white dark:bg-gray-800">
+                            <div class="flex justify-between items-start mb-4">
+                                <div>
+                                    <h5 class="font-bold text-lg text-gray-900 dark:text-white mb-2">${scenario.name}</h5>
+                                    <p class="text-sm text-gray-700 dark:text-gray-200 mb-3 font-medium">${scenario.description}</p>
+                                    <div class="flex items-center text-sm text-blue-600 dark:text-blue-400 font-semibold">
+                                        <i class="fas fa-users mr-2"></i>
+                                        <span>Team Size: ${scenario.team_size} agents</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="space-y-3">
+                                <div>
+                                    <h6 class="text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-2">Team Members</h6>
+                                    <div class="flex flex-wrap gap-1">
+                                        ${scenario.agents.slice(0, 4).map(agent =>
+                                            `<span class="inline-block bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs px-2 py-1 rounded font-medium">${agent.split(' - ')[1] || agent}</span>`
+                                        ).join('')}
+                                        ${scenario.agents.length > 4 ? `<span class="inline-block bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-xs px-2 py-1 rounded font-medium">+${scenario.agents.length - 4} more</span>` : ''}
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <h6 class="text-xs font-medium text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-2">Example Tasks</h6>
+                                    <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                                        ${scenario.common_tasks.map(task => `<li>• ${task}</li>`).join('')}
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6 pt-4 border-t border-gray-200 dark:border-gray-600">
+                                <div class="flex space-x-2">
+                                    <button onclick="viewTeamDetails('${scenario.id}')"
+                                            class="flex-1 bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 text-sm">
+                                        <i class="fas fa-eye mr-2"></i>View Team
+                                    </button>
+                                    <button onclick="showDeployModal('${scenario.id}')"
+                                            class="flex-1 bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-600 text-sm">
+                                        <i class="fas fa-rocket mr-2"></i>Deploy
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function displayAgentTemplates(templates) {
+            const container = document.getElementById('agent-templates-container');
+            
+            let html = '';
+            for (const [category, templateList] of Object.entries(templates)) {
+                html += `
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900/20 transition-colors duration-300">
+                        <div class="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+                            <h4 class="text-lg font-medium text-gray-900 dark:text-white">${category}</h4>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                `;
+                
+                templateList.forEach(template => {
+                    html += `
+                        <div class="template-card border border-gray-200 dark:border-gray-600 rounded-lg p-4 hover:shadow-md dark:hover:shadow-gray-900/30 transition-shadow bg-white dark:bg-gray-800">
+                            <div class="flex items-center mb-3">
+                                <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-robot text-blue-600 dark:text-blue-400"></i>
+                                </div>
+                                <div class="ml-3">
+                                    <h5 class="font-medium text-gray-900 dark:text-white">${template.name}</h5>
+                                    <p class="text-xs font-semibold text-blue-600 dark:text-blue-400">${template.role.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</p>
+                                </div>
+                            </div>
+
+                            <p class="text-sm text-gray-700 dark:text-gray-200 mb-3">${template.description}</p>
+
+                            <div class="text-xs text-gray-500 dark:text-gray-400 mb-3">
+                                <div class="flex justify-between">
+                                    <span>Temperature:</span>
+                                    <span class="text-gray-900 dark:text-white">${template.temperature}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span>Tools:</span>
+                                    <span class="text-gray-900 dark:text-white">${template.tools.length}</span>
+                                </div>
+                            </div>
+
+                            <button onclick="createAgentFromTemplate('${template.id}')"
+                                    class="w-full bg-blue-600 dark:bg-blue-700 text-white px-3 py-2 rounded text-sm hover:bg-blue-700 dark:hover:bg-blue-600">
+                                <i class="fas fa-plus mr-1"></i>Create Agent
+                            </button>
+                        </div>
+                    `;
+                });
+                
+                html += `
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        async function showDeployModal(scenarioId) {
+            currentScenario = scenarioId;
+            
+            // Get scenario details
+            try {
+                const response = await fetch('/api/templates/scenarios');
+                const data = await response.json();
+                
+                let scenario = null;
+                for (const scenarioList of Object.values(data.scenarios)) {
+                    scenario = scenarioList.find(s => s.id === scenarioId);
+                    if (scenario) break;
+                }
+                
+                if (scenario) {
+                    document.getElementById('scenario-details').innerHTML = `
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-gray-900 mb-2">${scenario.name}</h4>
+                            <p class="text-sm text-gray-600 mb-3">${scenario.description}</p>
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div>
+                                    <span class="font-medium">Team Size:</span> ${scenario.team_size} agents
+                                </div>
+                                <div>
+                                    <span class="font-medium">Key Metrics:</span> ${scenario.key_metrics.length} tracked
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    document.getElementById('deploy-scenario-modal').classList.remove('hidden');
+                }
+            } catch (error) {
+                showError('Error loading scenario details');
+            }
+        }
+
+        async function deployScenario() {
+            if (!currentScenario) return;
+            
+            const form = document.getElementById('deploy-scenario-form');
+            const formData = new FormData(form);
+            
+            const deployData = {
+                scenario: currentScenario,
+                prefix: formData.get('prefix') || ''
+            };
+            
+            try {
+                const response = await fetch('/api/scenarios/deploy', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(deployData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    closeModal('deploy-scenario-modal');
+                    form.reset();
+                    showSuccess(`Successfully deployed ${result.scenario} with ${result.agents.length} agents!`);
+                } else {
+                    showError(result.error || 'Failed to deploy scenario');
+                }
+            } catch (error) {
+                showError('Error deploying scenario: ' + error.message);
+            }
+        }
+
+        async function createAgentFromTemplate(templateId) {
+            try {
+                const response = await fetch('/api/agents/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        template: templateId
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showSuccess(`Created agent: ${result.agent.name}`);
+                } else {
+                    showError(result.error || 'Failed to create agent');
+                }
+            } catch (error) {
+                showError('Error creating agent: ' + error.message);
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function viewTeamDetails(scenarioId) {
+            // Find the scenario
+            const scenario = currentScenarios.find(s => s.id === scenarioId);
+            if (!scenario) {
+                alert('Scenario not found');
+                return;
+            }
+
+            // Generate detailed team view
+            const teamDetailsHtml = `
+                <div class="mb-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">${scenario.name}</h2>
+                    <p class="text-gray-600 dark:text-gray-300 mb-4">${scenario.description}</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-users text-blue-600 dark:text-blue-400 text-xl mr-3"></i>
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Team Size</p>
+                                    <p class="text-xl font-bold text-gray-900 dark:text-white">${scenario.team_size} agents</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-chart-line text-green-600 dark:text-green-400 text-xl mr-3"></i>
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Key Metrics</p>
+                                    <p class="text-xl font-bold text-gray-900 dark:text-white">${scenario.key_metrics ? scenario.key_metrics.length : 3} tracked</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-clock text-purple-600 dark:text-purple-400 text-xl mr-3"></i>
+                                <div>
+                                    <p class="text-sm text-gray-600 dark:text-gray-400">Duration</p>
+                                    <p class="text-xl font-bold text-gray-900 dark:text-white">${scenario.duration || '12-24'} weeks</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-users-cog mr-2"></i>Complete Team Roster
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        ${scenario.agents.map((agent, index) => {
+                            const [name, role] = agent.includes(' - ') ? agent.split(' - ') : ['Agent ' + (index + 1), agent];
+                            return `
+                                <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                                            <i class="fas fa-robot text-blue-600 dark:text-blue-400"></i>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h4 class="font-semibold text-gray-900 dark:text-white">${name}</h4>
+                                            <p class="text-sm font-medium text-blue-600 dark:text-blue-400">${role}</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-sm text-gray-600 dark:text-gray-300">
+                                        <p><strong>Responsibilities:</strong></p>
+                                        <ul class="list-disc list-inside mt-1 space-y-1">
+                                            ${getAgentResponsibilities(role).map(resp => `<li>${resp}</li>`).join('')}
+                                        </ul>
+                                    </div>
+                                </div>
+                            `;
+                        }).join('')}
+                    </div>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-tasks mr-2"></i>Key Deliverables
+                    </h3>
+                    <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
+                        <ul class="space-y-2">
+                            ${scenario.common_tasks.map(task => `
+                                <li class="flex items-start">
+                                    <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                    <span class="text-gray-700 dark:text-gray-300">${task}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                </div>
+
+                ${scenario.key_metrics ? `
+                <div class="mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                        <i class="fas fa-chart-bar mr-2"></i>Success Metrics
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        ${scenario.key_metrics.map(metric => `
+                            <div class="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 text-center">
+                                <i class="fas fa-chart-line text-blue-600 dark:text-blue-400 text-2xl mb-2"></i>
+                                <p class="text-sm font-medium text-gray-900 dark:text-white">${metric}</p>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                ` : ''}
+            `;
+
+            document.getElementById('team-details-content').innerHTML = teamDetailsHtml;
+            currentScenario = scenario;
+            document.getElementById('team-details-modal').classList.remove('hidden');
+        }
+
+        function getAgentResponsibilities(role) {
+            const responsibilities = {
+                'Transformation CEO': [
+                    'Strategic vision and leadership',
+                    'Digital transformation roadmap',
+                    'Stakeholder management',
+                    'Change management initiatives'
+                ],
+                'Digital CTO': [
+                    'Technology architecture decisions',
+                    'Digital platform strategy',
+                    'Technical team leadership',
+                    'Innovation and R&D oversight'
+                ],
+                'Business Analyst': [
+                    'Requirements gathering and analysis',
+                    'Process optimization',
+                    'Business case development',
+                    'Stakeholder communication'
+                ],
+                'Cloud Architect': [
+                    'Cloud infrastructure design',
+                    'Migration strategy planning',
+                    'Security and compliance',
+                    'Cost optimization'
+                ],
+                'Data Scientist': [
+                    'Data analysis and insights',
+                    'Predictive modeling',
+                    'Machine learning implementation',
+                    'Data visualization'
+                ],
+                'UX Designer': [
+                    'User experience research',
+                    'Interface design',
+                    'Usability testing',
+                    'Design system creation'
+                ],
+                'DevOps Engineer': [
+                    'CI/CD pipeline setup',
+                    'Infrastructure automation',
+                    'Monitoring and alerting',
+                    'Performance optimization'
+                ],
+                'Product Manager': [
+                    'Product strategy and roadmap',
+                    'Feature prioritization',
+                    'Market research',
+                    'Cross-functional coordination'
+                ],
+                'Marketing Manager': [
+                    'Marketing strategy development',
+                    'Campaign planning and execution',
+                    'Brand management',
+                    'Customer acquisition'
+                ],
+                'Sales Director': [
+                    'Sales strategy and planning',
+                    'Team leadership and training',
+                    'Customer relationship management',
+                    'Revenue optimization'
+                ]
+            };
+
+            return responsibilities[role] || [
+                'Strategic planning and execution',
+                'Team collaboration and coordination',
+                'Quality assurance and delivery',
+                'Continuous improvement initiatives'
+            ];
+        }
+
+        function deployFromTeamView() {
+            closeModal('team-details-modal');
+            if (currentScenario) {
+                showDeployModal(currentScenario.id);
+            }
+        }
+
+        function showSuccess(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.innerHTML = `<i class="fas fa-check mr-2"></i>${message}`;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        function showError(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+            notification.innerHTML = `<i class="fas fa-exclamation-triangle mr-2"></i>${message}`;
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.remove();
+            }, 5000);
+        }
+
+        // Dark Mode Functionality
+        function initDarkMode() {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+                document.documentElement.classList.add('dark');
+            }
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        // Initialize dark mode and add event listener
+        initDarkMode();
+        document.getElementById('theme-toggle').addEventListener('click', toggleDarkMode);
+    </script>
+
+    <style>
+        .template-tab {
+            @apply py-2 px-4 text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 border-b-2 border-transparent hover:border-gray-300 dark:hover:border-gray-600 transition-colors duration-300;
+        }
+        .template-tab.active {
+            @apply text-blue-600 dark:text-blue-400 border-blue-600 dark:border-blue-400;
+        }
+
+        /* Force dark mode text visibility */
+        .dark {
+            color-scheme: dark;
+        }
+        .dark * {
+            border-color: #4B5563 !important;
+        }
+        .dark body {
+            background-color: #111827 !important;
+            color: #F9FAFB !important;
+        }
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6 {
+            color: #F9FAFB !important;
+        }
+        .dark p, .dark span, .dark div, .dark td, .dark th, .dark label {
+            color: #D1D5DB !important;
+        }
+        .dark input, .dark select, .dark textarea {
+            background-color: #374151 !important;
+            color: #F9FAFB !important;
+            border-color: #6B7280 !important;
+        }
+        .dark input::placeholder, .dark select::placeholder, .dark textarea::placeholder {
+            color: #9CA3AF !important;
+        }
+        .dark option {
+            background-color: #374151 !important;
+            color: #F9FAFB !important;
+        }
+        .dark .text-gray-900 {
+            color: #F9FAFB !important;
+        }
+        .dark .text-gray-800 {
+            color: #F3F4F6 !important;
+        }
+        .dark .text-gray-700 {
+            color: #E5E7EB !important;
+        }
+        .dark .text-gray-600 {
+            color: #D1D5DB !important;
+        }
+        .dark .text-gray-500 {
+            color: #9CA3AF !important;
+        }
+        /* Force visibility for dynamically generated content */
+        .dark [class*="text-gray"] {
+            color: #D1D5DB !important;
+        }
+
+        /* Force all text elements to be visible in dark mode */
+        .dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+        .dark p, .dark span, .dark div, .dark button, .dark a {
+            color: #F9FAFB !important;
+        }
+
+        /* Specific overrides for template cards */
+        .dark .template-card * {
+            color: #F9FAFB !important;
+        }
+
+        .dark .template-card .text-gray-600,
+        .dark .template-card .text-gray-500,
+        .dark .template-card .text-gray-400 {
+            color: #D1D5DB !important;
+        }
+
+        /* Nuclear option - force ALL text to be visible in dark mode */
+        html.dark * {
+            color: #F9FAFB !important;
+        }
+
+        html.dark .text-gray-600,
+        html.dark .text-gray-500,
+        html.dark .text-gray-400 {
+            color: #D1D5DB !important;
+        }
+
+        html.dark .text-blue-600 {
+            color: #60A5FA !important;
+        }
+
+        /* Force role titles to be highly visible */
+        html.dark .template-card h5 {
+            color: #FFFFFF !important;
+            font-weight: 600 !important;
+        }
+
+        html.dark .template-card p {
+            color: #E5E7EB !important;
+        }
+
+        /* Make role text (CEO, CTO, etc.) stand out */
+        html.dark .template-card .text-blue-600 {
+            color: #60A5FA !important;
+            font-weight: 600 !important;
+        }
+
+        html.dark .template-card .text-blue-400 {
+            color: #60A5FA !important;
+            font-weight: 600 !important;
+        }
+
+        /* Force role badges to be highly visible */
+        html.dark .template-card span {
+            color: #FFFFFF !important;
+            background-color: #1E40AF !important;
+        }
+
+        html.dark .template-card .bg-blue-100 {
+            background-color: #1E40AF !important;
+            color: #FFFFFF !important;
+        }
+
+        html.dark .template-card .text-blue-800 {
+            color: #FFFFFF !important;
+        }
+
+        html.dark .template-card .bg-gray-100 {
+            background-color: #374151 !important;
+            color: #F9FAFB !important;
+        }
+    </style>
+</body>
+</html>
